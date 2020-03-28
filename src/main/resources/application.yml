@@ -1,0 +1,44 @@
+spring:
+  application:
+    name: Mancala Game
+#  datasource:
+#    hikari:
+#      pool-name: MancalaPool
+#      auto-commit: false
+#      minimum-idle: 5
+#      connection-timeout: 30000
+#      idle-timeout: 30000
+#      maximum-pool-size: 20
+#    type: com.zaxxer.hikari.HikariDataSource
+  devtools:
+    add-properties: true
+    restart:
+      enabled: false
+  jmx:
+    enabled: false
+#  jooq:
+#    sql-dialect: POSTGRES
+  mvc:
+    throw-exception-if-no-handler-found: true
+  resources:
+    add-mappings: false
+
+server:
+  compression:
+    enabled: true
+    mime-types: application/json, text/plain
+  undertow:
+    accesslog:
+      enabled: true
+      prefix: access
+      suffix: log
+      dir: logs
+  port: 8080
+  error:
+    include-stacktrace: always
+    include-exception: true
+  servlet:
+    context-path: /
+
+mancala:
+  stones: 6

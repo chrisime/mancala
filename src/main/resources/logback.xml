@@ -1,0 +1,37 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<configuration debug="false" packagingData="true" scan="true" scanPeriod="30 seconds">
+
+    <include resource="org/springframework/boot/logging/logback/defaults.xml"/>
+
+    <shutdownHook class="ch.qos.logback.core.hook.DelayingShutdownHook"/>
+
+    <property name="LOG_PATH" value="logs" />
+    <property name="LOG_FILE" value="bol" />
+
+    <appender name="Console-Appender" class="ch.qos.logback.core.ConsoleAppender">
+        <encoder>
+            <pattern>${CONSOLE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <appender name="File-Appender" class="ch.qos.logback.core.FileAppender">
+        <file>${LOG_PATH}/${LOG_FILE}.log</file>
+        <encoder>
+            <pattern>${FILE_LOG_PATTERN}</pattern>
+            <charset>utf8</charset>
+            <outputPatternAsHeader>true</outputPatternAsHeader>
+        </encoder>
+    </appender>
+
+    <logger name="org.springframework" level="debug" additivity="false">
+        <appender-ref ref="Console-Appender" />
+        <appender-ref ref="File-Appender" />
+    </logger>
+
+<!--    <root level="INFO">-->
+<!--        <appender-ref ref="ConsoleAppender"/>-->
+<!--    </root>-->
+
+</configuration>
