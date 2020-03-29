@@ -5,7 +5,14 @@ import com.bol.mancala.service.BIG_PIT_LEFT_ID
 import com.bol.mancala.service.BIG_PIT_RIGHT_ID
 import com.bol.mancala.service.NO_OF_PITS
 
-data class Board(val pits: List<Pit>, var player: Player) {
+data class Board(val pits: List<Pit>, var _player: Player) {
+
+    var player: Player = _player
+        private set
+
+    fun switchPlayer() {
+        this.player = if (this.player == Player.ONE) Player.TWO else Player.ONE
+    }
 
     fun isMyTurnOk(pitIndex: Int): Boolean {
         return this.player == Player.ONE && pitIndex < BIG_PIT_RIGHT_ID
@@ -37,7 +44,6 @@ data class Board(val pits: List<Pit>, var player: Player) {
 
     fun getOppositePit(index: Int): Pit {
         val pitIndexOnTheOtherSide = NO_OF_PITS - index
-
 
         return getPit(pitIndexOnTheOtherSide)
     }

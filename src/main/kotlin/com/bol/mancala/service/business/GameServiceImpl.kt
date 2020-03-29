@@ -60,8 +60,8 @@ open class GameServiceImpl(private val stones: Int,
             throw NumberOfPitsException("board doesn't have the correct amount of pits, only $numOfPits pits provided")
         }
 
-        val pits = boardDto.pits.map { Pit(index = it.index, stones = it.stones) }
-        val board = Board(pits = pits, player = boardDto.nextPlayer)
+        val pits = boardDto.pits.map { Pit(_index = it.index, _stones = it.stones) }
+        val board = Board(pits = pits, _player = boardDto.nextPlayer)
 
         // get current pit where to start
         val pit = board.getPit(pitIndex)
@@ -143,7 +143,7 @@ open class GameServiceImpl(private val stones: Int,
 
         val actualPit = board.getPit(currentIndex)
         if (!actualPit.isLeftBigPit() && !actualPit.isRightBigPit()) {
-            board.player = if (isPlayerOne) Player.TWO else Player.ONE
+            board.switchPlayer()
         }
     }
 
