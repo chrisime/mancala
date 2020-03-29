@@ -80,7 +80,7 @@ open class GameServiceImpl(private val stones: Int,
             throw NoStonesException("no stones inside pit $pitIndex")
         }
 
-        startSowing(board, pit, pitIndex)
+        startSowing(board, pit.stones, pitIndex)
 
         val isGameOver = board.hasEmptyPits(0, BIG_PIT_RIGHT_ID - 1)
                          || board.hasEmptyPits(BIG_PIT_RIGHT_ID, NO_OF_PITS - 1)
@@ -96,10 +96,9 @@ open class GameServiceImpl(private val stones: Int,
                         scorePlayer2 = scorePlayer2)
     }
 
-    fun startSowing(board: Board, pit: Pit, pitIndex: Int) {
-        // get stones before emptying it for next move
-        val stones = pit.stones
-        pit.removeAllStones()
+    private fun startSowing(board: Board, stones: Int, pitIndex: Int) {
+        // remove all stones from current pit for next move
+        board.removeAllStonesAtPit(pitIndex)
 
         var currentIndex = pitIndex
 

@@ -48,6 +48,10 @@ data class Board(val pits: List<Pit>, var player: Player) {
         getPit(pitIndexOnTheOtherSide).removeAllStones()
     }
 
+    fun removeAllStonesAtPit(index: Int) {
+        getPit(index).removeAllStones()
+    }
+
     fun addStonesAtPit(index: Int, stones: Int) {
         getPit(index).addStones(stones)
     }
