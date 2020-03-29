@@ -1,14 +1,22 @@
 package com.bol.mancala.service.business.dto
 
+import com.bol.mancala.dto.Player
+import com.bol.mancala.service.BIG_PIT_LEFT_ID
 import com.bol.mancala.service.BIG_PIT_RIGHT_ID
 import com.bol.mancala.service.NO_OF_PITS
-import com.bol.mancala.dto.Player
 
 data class Board(val pits: List<Pit>, var player: Player) {
 
     fun isMyTurnOk(pitIndex: Int): Boolean {
         return this.player == Player.ONE && pitIndex < BIG_PIT_RIGHT_ID
                || this.player == Player.TWO && pitIndex > BIG_PIT_RIGHT_ID
+    }
+
+    fun getScores(): Pair<Int, Int> {
+        val player1 = pits[BIG_PIT_RIGHT_ID - 1].stones
+        val player2 = pits[BIG_PIT_LEFT_ID - 1].stones
+
+        return Pair(player1, player2)
     }
 
     fun hasEmptyPits(start: Int, end: Int): Boolean {

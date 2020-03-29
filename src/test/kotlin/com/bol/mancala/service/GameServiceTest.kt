@@ -359,7 +359,9 @@ class GameServiceTest {
                 PitDto(14, 2)
             ),
             nextPlayer = Player.ONE,
-            isGameOver = true
+            isGameOver = true,
+            scorePlayer1 = 30,
+            scorePlayer2 = 2
         )
 
         val actualBoard = gameService.sow(boardSetup, 6)

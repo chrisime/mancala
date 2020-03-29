@@ -85,9 +85,15 @@ open class GameServiceImpl(private val stones: Int,
         val isGameOver = board.hasEmptyPits(0, BIG_PIT_RIGHT_ID - 1)
                          || board.hasEmptyPits(BIG_PIT_RIGHT_ID, NO_OF_PITS - 1)
 
+        val (scorePlayer1, scorePlayer2) = if (isGameOver) board.getScores() else null to null
+
         val pitDtos = board.pits.map { PitDto(index = it.index, stones = it.stones) }
 
-        return BoardDto(pits = pitDtos, nextPlayer = board.player, isGameOver = isGameOver)
+        return BoardDto(pits = pitDtos,
+                        nextPlayer = board.player,
+                        isGameOver = isGameOver,
+                        scorePlayer1 = scorePlayer1,
+                        scorePlayer2 = scorePlayer2)
     }
 
     fun startSowing(board: Board, pit: Pit, pitIndex: Int) {
