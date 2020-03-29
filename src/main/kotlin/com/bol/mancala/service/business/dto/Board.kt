@@ -35,8 +35,17 @@ data class Board(val pits: List<Pit>, var player: Player) {
         return pits[index - 1]
     }
 
-    fun removeAllStonesFromPit(index: Int) {
-        getPit(index).removeAllStones()
+    fun getOppositePit(index: Int): Pit {
+        val pitIndexOnTheOtherSide = NO_OF_PITS - index
+
+
+        return getPit(pitIndexOnTheOtherSide)
+    }
+
+    fun removeAllStonesFromOppositePit(index: Int) {
+        val pitIndexOnTheOtherSide = NO_OF_PITS - index
+
+        getPit(pitIndexOnTheOtherSide).removeAllStones()
     }
 
     fun addStonesAtPit(index: Int, stones: Int) {

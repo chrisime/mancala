@@ -125,12 +125,11 @@ open class GameServiceImpl(private val stones: Int,
             }
 
             // rule 3: current stone goes into an empty pit and the pit on the other side is filled with stones
-            val pitIndexOnTheOtherSide = NO_OF_PITS - currentIndex
-            val pitOnTheOtherSide = board.getPit(pitIndexOnTheOtherSide)
+            val pitOnTheOtherSide = board.getOppositePit(currentIndex)
             // check if we can steal the stones from the pit on the other side
             if (nextPit.hasNoStones() && !pitOnTheOtherSide.hasNoStones()) {
                 val otherStones = pitOnTheOtherSide.stones
-                board.removeAllStonesFromPit(pitIndexOnTheOtherSide)
+                board.removeAllStonesFromOppositePit(currentIndex)
 
                 val bigPitIndex = if (isPlayerOne) BIG_PIT_RIGHT_ID else BIG_PIT_LEFT_ID
 
