@@ -1,6 +1,7 @@
 package com.bol.mancala.controller
 
 import com.bol.mancala.dto.BoardDto
+import com.bol.mancala.dto.IdDto
 import com.bol.mancala.service.business.GameService
 import org.springframework.http.ResponseEntity
 import org.springframework.web.bind.annotation.PathVariable
@@ -15,10 +16,10 @@ import java.util.UUID
 class GameController(private val gameService: GameService) {
 
     @PostMapping
-    fun startGame(/*@RequestParam player: Player*/): ResponseEntity<String> {
+    fun startGame(/*@RequestParam player: Player*/): ResponseEntity<IdDto> {
         val uuid = gameService.start()
 
-        return ResponseEntity.ok(uuid.toString())
+        return ResponseEntity.ok(uuid)
     }
 
     @PostMapping("/sow/{pitIndex}")
@@ -30,8 +31,8 @@ class GameController(private val gameService: GameService) {
     }
 
     @PostMapping("/sow/uuid/{pitIndex}")
-    fun sow(@PathVariable("pitIndex") pitIndex: Int, @RequestBody uuid: String): ResponseEntity<BoardDto> {
-        val uuidFromString = UUID.fromString(uuid)
+    fun sow(@PathVariable("pitIndex") pitIndex: Int, @RequestBody id: IdDto): ResponseEntity<BoardDto> {
+        val uuidFromString = UUID.fromString(id.uuid)
         val boardDto = gameService.sow(uuidFromString, pitIndex)
 
         return ResponseEntity.ok(boardDto)

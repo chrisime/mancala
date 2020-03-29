@@ -1,6 +1,7 @@
 package com.bol.mancala.service.business
 
 import com.bol.mancala.dto.BoardDto
+import com.bol.mancala.dto.IdDto
 import com.bol.mancala.dto.PitDto
 import com.bol.mancala.dto.Player
 import com.bol.mancala.exception.GameNotFoundException
@@ -19,7 +20,7 @@ import java.util.UUID
 open class GameServiceImpl(private val stones: Int,
                            private val gamePersistenceService: GamePersistenceService) : GameService {
 
-    override fun start(player: Player): UUID {
+    override fun start(player: Player): IdDto {
         val first = (1 until BIG_PIT_RIGHT_ID).map { index ->
             PitDto(index, stones)
         }
@@ -33,7 +34,9 @@ open class GameServiceImpl(private val stones: Int,
 
         val board = BoardDto(pits = first + bigPitRight + second + bigPitLeft, nextPlayer = player, isGameOver = false)
 
-        return gamePersistenceService.create(board)
+        val uuid = gamePersistenceService.create(board)
+
+        return IdDto(uuid.toString())
     }
 
     override fun sow(uuid: UUID, pitIndex: Int): BoardDto {
