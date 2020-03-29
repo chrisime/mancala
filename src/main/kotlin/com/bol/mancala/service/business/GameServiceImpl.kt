@@ -16,8 +16,8 @@ import com.bol.mancala.service.persistence.GamePersistenceService
 import mu.KotlinLogging
 import java.util.UUID
 
-class GameServiceImpl(private val stones: Int,
-                      private val gamePersistenceService: GamePersistenceService) : GameService {
+open class GameServiceImpl(private val stones: Int,
+                           private val gamePersistenceService: GamePersistenceService) : GameService {
 
     override fun start(player: Player): UUID {
         val first = (1 until BIG_PIT_RIGHT_ID).map { index ->
