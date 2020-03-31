@@ -1,9 +1,10 @@
 package com.bol.mancala.controller
 
-import com.bol.mancala.Beans
+import com.bol.mancala.BeansInitializer
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
+import org.springframework.context.annotation.Profile
 import org.springframework.http.MediaType
 import org.springframework.test.context.ContextConfiguration
 import org.springframework.test.context.TestPropertySource
@@ -12,8 +13,7 @@ import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
 import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
 
-@ContextConfiguration(classes = [Beans::class])
-@TestPropertySource("classpath:/application_test.yml")
+@ContextConfiguration(initializers = [BeansInitializer::class])
 @WebMvcTest(controllers = [GameController::class])
 class GameControllerTest {
 
