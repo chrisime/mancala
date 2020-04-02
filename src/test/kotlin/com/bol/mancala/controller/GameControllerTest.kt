@@ -4,14 +4,10 @@ import com.bol.mancala.BeansInitializer
 import org.junit.jupiter.api.Test
 import org.springframework.beans.factory.annotation.Autowired
 import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest
-import org.springframework.context.annotation.Profile
 import org.springframework.http.MediaType
 import org.springframework.test.context.ContextConfiguration
-import org.springframework.test.context.TestPropertySource
 import org.springframework.test.web.servlet.MockMvc
-import org.springframework.test.web.servlet.request.MockMvcRequestBuilders.post
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath
-import org.springframework.test.web.servlet.result.MockMvcResultMatchers.status
+import org.springframework.test.web.servlet.post
 
 @ContextConfiguration(initializers = [BeansInitializer::class])
 @WebMvcTest(controllers = [GameController::class])
@@ -22,10 +18,21 @@ class GameControllerTest {
 
     @Test
     fun `create a new game`() {
-        mockMvc.perform(post("/mancala").contentType(MediaType.APPLICATION_JSON))
-            .andExpect(status().isOk)
-            .andExpect(jsonPath("$.uuid").exists())
-            .andExpect(jsonPath("$.uuid").isString)
+        mockMvc.post("/mancala") {
+            accept = MediaType.APPLICATION_JSON
+            contentType = MediaType.APPLICATION_JSON
+        }.andExpect {
+            status {
+                isOk
+            }
+            content {
+                contentType(MediaType.APPLICATION_JSON)
+            }
+            jsonPath("$.uuid") {
+                exists()
+                isString
+            }
+        }
     }
 
 }
